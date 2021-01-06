@@ -1,0 +1,250 @@
+basePath: /v1
+definitions:
+  dto.ProductDto:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      omitempty:
+        type: string
+      price:
+        type: number
+      sponsor:
+        type: string
+    type: object
+  dto.SocialMediaDto:
+    properties:
+      biography:
+        type: string
+      email:
+        type: string
+      follower_count:
+        type: integer
+      followers:
+        type: string
+      full_name:
+        type: string
+      likes:
+        type: string
+      media_count:
+        type: integer
+      profile_pic_url:
+        type: string
+      username:
+        type: string
+      usertags_count:
+        type: integer
+    type: object
+  model.InstagramAccount:
+    properties:
+      biography:
+        type: string
+      email:
+        type: string
+      follower_count:
+        type: integer
+      full_name:
+        type: string
+      id:
+        type: integer
+      media_count:
+        type: integer
+      profile_pic_url:
+        type: string
+      username:
+        type: string
+      usertags_count:
+        type: integer
+    type: object
+  model.Product:
+    properties:
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+      sponsor:
+        type: string
+    type: object
+  model.User:
+    properties:
+      createdAt:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: petstore.swagger.io
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a server side of task.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Impact Bakery task API
+  version: "1.0"
+paths:
+  /v1/instagram/:name:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Username in instagram
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.InstagramAccount'
+      summary: SearchInstagramByName returns instagram datas based on provided name.
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      description: Login checks if the user is present in database, and returns encoded
+        token with his informations.
+      parameters:
+      - description: ' '
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ProductDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad_credentials_provided
+      summary: Login checks users credentials.
+  /v1/products:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/model.Product'
+              type: array
+            type: array
+        "500":
+          description: Internal server error
+          schema:
+            type: string
+      summary: FindAll returns all products
+    post:
+      consumes:
+      - application/json
+      description: Creates new product that is going to be saved in database.
+      parameters:
+      - description: ' '
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ProductDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Product'
+        "400":
+          description: Can_not_bind_request_Body
+        "404":
+          description: Can_not_bind_request_Body
+      summary: Create creates new product.
+  /v1/register:
+    post:
+      consumes:
+      - application/json
+      description: Register is storing new user which wants to use our application.
+      parameters:
+      - description: ' '
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully_registered
+          schema:
+            type: string
+        "400":
+          description: Bad_credentials_provided
+        "404":
+          description: Bad_credentials_provided
+      summary: Register creates new user in database.
+  /v1/socialmedia/:name:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Username_in_instagram.
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SocialMediaDto'
+        "400":
+          description: Bad_request_payload
+      summary: SearchSocialMediaByName returns instagram and facebook datas based
+        on provided name.
+  /v1/users:
+    get:
+      consumes:
+      - application/json
+      description: FindAll returns all users.
+      produces:
+      - application/json
+      responses:
+        "20":
+          description: ""
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/model.User'
+              type: array
+            type: array
+        "500":
+          description: Internal_server_error
+      summary: FindAll returns all users present in application.
+swagger: "2.0"
