@@ -3,10 +3,10 @@ Simple project that scrapes instagram and facebook profiles for media count, num
 
 Golang used as backend,
 React as front.
+<br/><br/>
 
-
-Login and registering
-JWT tokens
-Storing in postgres
-Scraping throu instagram and facebook profiles based on provided profile name
-Swagger documentation.
+Login and registering <br/>
+JWT tokens <br/>
+Storing in postgres <br/>
+Scraping throu instagram and facebook profiles based on provided profile name <br/>
+Swagger documentation. 
